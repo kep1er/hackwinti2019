@@ -3,15 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  firebase: {
-    apiKey: '<your-key>',
-    authDomain: '<your-project-authdomain>',
-    databaseURL: '<your-database-URL>',
-    projectId: '<your-project-id>',
-    storageBucket: '<your-storage-bucket>',
-    messagingSenderId: '<your-messaging-sender-id>'
-  }
+    production: false,
+    firebase: {
+        apiKey: "AIzaSyCIngA5ejZRx3JiRw6B5ZLrLEZpaCOaIF8",
+        authDomain: "hackwinti2019.firebaseapp.com",
+        databaseURL: "https://hackwinti2019.firebaseio.com",
+        projectId: "hackwinti2019",
+        storageBucket: "hackwinti2019.appspot.com",
+        messagingSenderId: "961664874246"
+    }
 };
 
 /*

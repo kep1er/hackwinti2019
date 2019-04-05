@@ -11,6 +11,9 @@ export const environment = {
         projectId: "hackwinti2019",
         storageBucket: "hackwinti2019.appspot.com",
         messagingSenderId: "961664874246"
+    },
+    dialogflow: {
+        hackwinti2019bot: 'e9201f59ad444c24ba82848610cde608'
     }
 };
 

@@ -54,9 +54,13 @@ body {
 
   &--right {
     justify-content: flex-end;
-    .msg__content {
-      order: -1;
 
+    .msg__photo {
+      order: 1;
+      margin-left: .5rem;
+    }
+
+    .msg__content {
       &:before {
         right: -10px;
         left: auto;
@@ -68,7 +72,7 @@ body {
 
   &__content {
     position: relative;
-    margin: 1rem;
+    margin: 1rem 10px;
     padding: 1em 1.5em;
     background: $color--primary;
     color: white;
@@ -85,6 +89,16 @@ body {
       border-width: 5px 10px 5px 0;
       border-color: transparent $color--primary transparent transparent;
     }
+  }
+
+  &__photo {
+    flex-shrink: 0;
+    width: 3rem;
+  }
+
+  .msg__image {
+    margin: 0 10px;
+    border-radius: 5px;
   }
 }
 

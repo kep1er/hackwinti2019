@@ -48,8 +48,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
         const data = {
             uid: 'jqFFtNxiXIdOdBDtB129',
-            content: agent.query,
-            createdAt: Date.now()
+            content: agent.request_.body.queryResult.fulfillmentText,
+            createdAt: Date.now() + 500
         };
         const ref = db.collection('chats').doc(sessionId);
         return ref.update({

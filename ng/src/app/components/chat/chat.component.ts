@@ -33,6 +33,7 @@ export class ChatComponent implements OnInit {
         const source: any = this.cs.get(chatId);
         source.subscribe(res => this.botActive = res.botActive);
         this.chat$ = this.cs.joinUsers(source); // .pipe(tap(v => this.scrollBottom(v)));
+        this.chat$.subscribe(() => this.scrollBottom())
         this.scrollBottom();
     }
 

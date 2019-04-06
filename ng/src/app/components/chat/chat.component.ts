@@ -5,6 +5,9 @@ import {map, tap} from 'rxjs/operators';
 import {ChatService} from "../../services/chat/chat.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {BotService} from "../../services/bot/bot.service";
+import {AngularFireDatabase} from "@angular/fire/database";
+import {AngularFirestore} from "@angular/fire/firestore";
+import {async} from "rxjs/internal/scheduler/async";
 
 @Component({
     selector: 'app-chat',
@@ -20,7 +23,8 @@ export class ChatComponent implements OnInit {
         public cs: ChatService,
         private route: ActivatedRoute,
         public auth: AuthService,
-        public bot: BotService
+        public bot: BotService,
+        public afs: AngularFirestore
     ) {
     }
 
@@ -32,8 +36,11 @@ export class ChatComponent implements OnInit {
         this.scrollBottom();
     }
 
-    fileUploaded($event){
-        console.log($event);
+    fileUploaded(chatId, $event){
+        this.cs.sendMessage(chatId, 'IMAGE', $event);
+        if (this.botActive) {
+            this.bot.converse('IMAGE', chatId);
+        }
     }
 
     submit(chatId) {

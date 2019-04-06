@@ -4,7 +4,8 @@
             <div #chatBox class="chat__main">
                 <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
                     <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px">
-                    <p class="msg__content">{{ msg.content }}</p>
+                    <img *ngIf="msg.imageUrl != 'undefined'" class="" [src]="msg.imageUrl">
+                    <p *ngIf="msg.imageUrl == 'undefined'" class="msg__content">{{ msg.content }}</p>
                 </div>
             </div>
             <div class="chat__form">
@@ -12,9 +13,12 @@
                     <mat-label>Type Away ...</mat-label>
                     <input matInput [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(chat.id)" placeholder="Type away ..." />
                     <mat-icon matSuffix>attach_file</mat-icon>
+
                     <mat-hint align="start"></mat-hint>
                 </mat-form-field>
             </div>
         </div>
+        <app-chat-image-upload (fileUploadedEvent)="fileUploaded(chat.id, $event)">
+        </app-chat-image-upload>
     </ng-container>
 </ng-container>

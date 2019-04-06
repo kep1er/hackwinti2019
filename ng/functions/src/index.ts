@@ -49,7 +49,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             content: agent.query,
             createdAt: Date.now()
         };
-        console.log(data, sessionId)
+        console.log(data, sessionId);
         const ref = db.collection('chats').doc(sessionId);
         return ref.update({
             messages: admin.firestore.FieldValue.arrayUnion(data)

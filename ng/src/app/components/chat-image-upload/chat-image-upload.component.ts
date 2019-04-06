@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 import {from} from 'rxjs';
@@ -29,6 +29,8 @@ export class ChatImageUploadComponent {
     isHovering: boolean;
 
     currentSnap: any;
+
+    @Output() fileUploadedEvent = new EventEmitter();
 
     constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
     }
@@ -68,7 +70,9 @@ export class ChatImageUploadComponent {
                 this.downloadURL.subscribe((url) => {
                     if (this.currentSnap.bytesTransferred === this.currentSnap.totalBytes) {
                         // Update firestore on completion
-                        this.db.collection('photos').add({path, size: this.currentSnap.totalBytes, downloadUrl: url});
+                        this.db.collection('photos')
+                            .add({path, size: this.currentSnap.totalBytes, downloadUrl: url})
+                            .then(res => this.fileUploadedEvent.emit(url));
                     }
                 });
             }),

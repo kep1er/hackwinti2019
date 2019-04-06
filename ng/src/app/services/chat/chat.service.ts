@@ -6,6 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {Observable, combineLatest, of} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
 import {BotService} from "../bot/bot.service";
+import {computeStyle} from "@angular/animations/browser/src/util";
 
 @Injectable({
     providedIn: 'root'
@@ -64,13 +65,17 @@ export class ChatService {
         return this.router.navigate(['chats', docRef.id]);
     }
 
-    async sendMessage(chatId, content) {
+    async sendMessage(chatId, content, imageUrl?) {
+        if(!imageUrl){
+            imageUrl = null;
+        }
         const {uid} = await this.auth.getUser();
 
         const data = {
             uid,
             content,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            imageUrl: imageUrl
         };
 
         if (uid) {

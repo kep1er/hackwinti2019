@@ -14,18 +14,18 @@ export class ChatBotComponent implements OnInit {
     messages: Observable<Message[]>;
     formValue: string;
 
-    constructor(public chat: BotService) {
+    constructor(public bot: BotService) {
     }
 
     ngOnInit() {
         // appends to array after each new message is added to feedSource
-        this.messages = this.chat.conversation.asObservable().pipe(
+        this.messages = this.bot.conversation.asObservable().pipe(
             scan((acc, val) => acc.concat(val))
         )
     }
 
     sendMessage() {
-        this.chat.converse(this.formValue);
+        this.bot.converse(this.formValue);
         this.formValue = '';
     }
 

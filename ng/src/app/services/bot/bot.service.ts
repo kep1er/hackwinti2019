@@ -25,7 +25,7 @@ export class BotService {
         const userMessage = new Message(msg, 'user');
         this.update(userMessage);
 
-        return this.client.textRequest(msg)
+        return this.client.textRequest(msg, {sessionId: 'VYFatwYW2AG8379JgyzF'})
             .then(res => {
                 const speech = res.result.fulfillment.speech;
                 const botMessage = new Message(speech, 'bot');

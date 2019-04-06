@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {ChatService} from "../../services/chat/chat.service";
 import {AuthService} from "../../services/auth/auth.service";
+import {BotService} from "../../services/bot/bot.service";
 
 @Component({
     selector: 'app-chat',
@@ -17,7 +18,8 @@ export class ChatComponent implements OnInit {
     constructor(
         public cs: ChatService,
         private route: ActivatedRoute,
-        public auth: AuthService
+        public auth: AuthService,
+        public bot: BotService
     ) {}
 
     ngOnInit() {
@@ -32,6 +34,7 @@ export class ChatComponent implements OnInit {
             return alert('you need to enter something');
         }
         this.cs.sendMessage(chatId, this.newMsg);
+        this.bot.converse(this.newMsg);
         this.newMsg = '';
         this.scrollBottom();
     }

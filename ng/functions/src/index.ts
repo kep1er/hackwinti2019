@@ -42,6 +42,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     const agent = new WebhookClient({request, response});
     const sessionId = path.basename(agent.session);
 
+    console.log(`Intent: ${agent.intent}`);
+
     function createMessage(agent: any){
 
         const data = {
@@ -49,7 +51,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             content: agent.query,
             createdAt: Date.now()
         };
-        console.log(data, sessionId);
         const ref = db.collection('chats').doc(sessionId);
         return ref.update({
             messages: admin.firestore.FieldValue.arrayUnion(data)
@@ -59,7 +60,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     function writeToDb(agent: any) {
         // Get parameter from Dialogflow with the string to add to the database
         const databaseEntry = agent.parameters.databaseEntry;
-        console.log(agent.request.body);
 
         // Get the database collection 'dialogflow' and document 'agent' and store
         // the document  {entry: "<value of database entry>"} in the 'agent' document
@@ -99,6 +99,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     let intentMap = new Map();
     intentMap.set('ReadFromFirestore', readFromDb);
     intentMap.set('WriteToFirestore', writeToDb);
-    intentMap.set('test', createMessage);
+    intentMap.set(agent.intent, createMessage);
     agent.handleRequest(intentMap);
 });

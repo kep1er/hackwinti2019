@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 $color--primary: #01009a;
+//$color--primary-faded: lighten($color--primary, 25%);
 
 body {
   margin: 0;
@@ -51,6 +52,7 @@ body {
 .msg {
   display: flex;
   align-items: center;
+  margin: 1rem 0;
 
   &--right {
     justify-content: flex-end;
@@ -62,6 +64,8 @@ body {
 
     .msg__content {
       text-align: right;
+      background: $color--primary;
+      color: white;
 
       &:before {
         right: -10px;
@@ -74,10 +78,10 @@ body {
 
   &__content {
     position: relative;
-    margin: 1rem 10px;
-    padding: 1em 1.5em;
-    background: $color--primary;
-    color: white;
+    margin: 0 10px;
+    padding: 0.6em 1.4em;
+    //background: $color--primary-faded;
+    border: 2px solid $color--primary;
     border-radius: 5px;
 
     &:before {

@@ -25,7 +25,7 @@ export class ChatBotComponent implements OnInit {
     }
 
     sendMessage() {
-        this.bot.converse(this.formValue);
+        this.bot.converse(this.formValue, "Od36v9HgXQNQ4Lcl497o");
         this.formValue = '';
     }
 

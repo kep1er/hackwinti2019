@@ -13,7 +13,9 @@ export class Message {
 export class BotService {
 
     readonly token = environment.dialogflow.hackwinti2019bot;
-    readonly client = new ApiAiClient({accessToken: this.token});
+    readonly client = new ApiAiClient({
+        accessToken: this.token,
+    });
 
     conversation = new BehaviorSubject<Message[]>([]);
 
@@ -21,11 +23,16 @@ export class BotService {
     }
 
     // Sends and receives messages via DialogFlow
-    converse(msg: string) {
+    converse(msg: string, chatId?: string) {
         const userMessage = new Message(msg, 'user');
         this.update(userMessage);
 
-        return this.client.textRequest(msg, {sessionId: 'VYFatwYW2AG8379JgyzF'})
+        if (chatId) {
+            this.client.setSessionId(chatId)
+        }
+
+        // return this.client.eventRequest('gugus_test', {sessionId: 'hallovelo'})
+        return this.client.textRequest(msg)
             .then(res => {
                 const speech = res.result.fulfillment.speech;
                 const botMessage = new Message(speech, 'bot');

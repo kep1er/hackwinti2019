@@ -1,5 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+// import {firestore} from "firebase/app";
+const path = require('path')
 
 admin.initializeApp();
 
@@ -38,10 +40,27 @@ process.env.DEBUG = 'dialogflow:*'; // enables lib debugging statements
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
     const agent = new WebhookClient({request, response});
+    const sessionId = path.basename(agent.session);
+
+    function createMessage(agent: any){
+
+        const data = {
+            uid: 'jqFFtNxiXIdOdBDtB129',
+            content: agent.query,
+            createdAt: Date.now()
+        };
+        console.log(data, sessionId)
+        const ref = db.collection('chats').doc(sessionId);
+        return ref.update({
+            messages: admin.firestore.FieldValue.arrayUnion(data)
+        });
+    }
 
     function writeToDb(agent: any) {
         // Get parameter from Dialogflow with the string to add to the database
         const databaseEntry = agent.parameters.databaseEntry;
+        console.log(agent.session);
+        
         // Get the database collection 'dialogflow' and document 'agent' and store
         // the document  {entry: "<value of database entry>"} in the 'agent' document
         const dialogflowAgentRef = db.collection('dialogflow').doc('agent');
@@ -79,6 +98,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     let intentMap = new Map();
     intentMap.set('ReadFromFirestore', readFromDb);
     intentMap.set('WriteToFirestore', writeToDb);
-    intentMap.set('test', writeToDb);
+    intentMap.set('test', createMessage);
     agent.handleRequest(intentMap);
 });

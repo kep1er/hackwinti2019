@@ -29,12 +29,13 @@
   </ng-template>
 
 </div>
-<mat-list>
+<mat-action-list>
   <h3 mat-subheader>Your Issues</h3>
-  <mat-list-item *ngFor="let chat of userChats$ | async">
+  <mat-list-item *ngFor="let chat of userChats$ | async" (click)="router.navigateByUrl('/chats/' + chat.id)">
     <mat-icon mat-list-icon>chat</mat-icon>
     <h4 mat-line>{{chat.id}}</h4>
     <p mat-line> {{chat.messages.length}} </p>
+    <mat-icon>navigate_next</mat-icon>
   </mat-list-item>
   <!-- <mat-divider></mat-divider>
   <h3 mat-subheader>Notes</h3>
@@ -43,4 +44,4 @@
     <h4 mat-line>{{note.name}}</h4>
     <p mat-line> {{note.messages.length}} </p>
   </mat-list-item> -->
-</mat-list>
+</mat-action-list>

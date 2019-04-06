@@ -1,0 +1,11 @@
+.progress-bar{
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  display: block;
+}
+
+.progress-bar[aria-valuenow='100']{
+  display: none;
+}

@@ -6,10 +6,4 @@
         </label>
     </div>
 </div>
-<div *ngIf="percentage | async as pct">
-    <progress class="progress is-info"
-              [value]="pct"
-              max="100">
-    </progress>
-    {{ pct | number }}%
-</div>
+<mat-progress-bar class="progress-bar" *ngIf="percentage | async as pct" mode="determinate" [value]="pct"></mat-progress-bar>

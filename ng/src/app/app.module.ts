@@ -7,7 +7,7 @@ import {ChatComponent} from './components/chat/chat.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from './components/home/home.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFirestore, AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {AngularFireStorageModule} from "@angular/fire/storage";
 import {HttpClientModule} from "@angular/common/http";
@@ -24,7 +24,7 @@ import {
     MatListModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule, MatProgressBarModule,
 } from '@angular/material';
 import {ChatImageSelectionComponent} from './components/chat-image-selection/chat-image-selection.component';
 import {ChatImageComponent} from './components/chat-image/chat-image.component';
@@ -64,9 +64,11 @@ import {FileSizePipe} from './pipes/file-size/file-size.pipe';
         WebcamModule,
         MatFormFieldModule,
         MatInputModule,
+        MatProgressBarModule,
     ],
     providers: [
-        BotService
+        BotService,
+        AngularFirestore
     ],
     bootstrap: [AppComponent]
 })

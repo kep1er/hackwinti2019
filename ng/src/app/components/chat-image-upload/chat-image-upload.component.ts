@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/storage";
-import {Observable} from "rxjs";
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import {Observable} from 'rxjs';
 import {from} from 'rxjs';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {finalize} from "rxjs/operators";
-import {tap} from "rxjs/internal/operators/tap";
+import {AngularFirestore} from '@angular/fire/firestore';
+import {finalize} from 'rxjs/operators';
+import {tap} from 'rxjs/internal/operators/tap';
+import {log} from 'util';
 
 @Component({
     selector: 'app-chat-image-upload',
@@ -26,6 +27,8 @@ export class ChatImageUploadComponent {
 
     // State for dropzone CSS toggling
     isHovering: boolean;
+
+    currentSnap: any;
 
     constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
     }
@@ -60,21 +63,26 @@ export class ChatImageUploadComponent {
         this.percentage = this.task.percentageChanges();
         this.snapshot = this.task.snapshotChanges().pipe(
             // The file's download URL
-            finalize(() => this.downloadURL = fileRef.getDownloadURL()),
+            finalize(() => {
+                this.downloadURL = this.storage.ref(path).getDownloadURL();
+                this.downloadURL.subscribe((url) => {
+                    if (this.currentSnap.bytesTransferred === this.currentSnap.totalBytes) {
+                        // Update firestore on completion
+                        this.db.collection('photos').add({path, size: this.currentSnap.totalBytes, downloadUrl: url});
+                    }
+                });
+            }),
             tap(snap => {
-                console.log(snap)
-                if (snap.bytesTransferred === snap.totalBytes) {
-                    // Update firestore on completion
-                    this.db.collection('photos').add({path, size: snap.totalBytes})
-                }
+                this.currentSnap = snap;
             })
-        )
+        );
+        this.snapshot.subscribe();
     }
 
 
     // Determines if the upload task is active
     isActive(snapshot) {
-        return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
+        return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
     }
 
 

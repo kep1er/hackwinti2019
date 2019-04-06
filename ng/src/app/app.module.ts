@@ -14,8 +14,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {ChatBotComponent} from './components/chat-bot/chat-bot.component';
 import {BotService} from "./services/bot/bot.service";
 import {WebcamModule} from 'ngx-webcam';
-
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {
@@ -25,6 +23,8 @@ import {
     MatMenuModule,
     MatListModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
 } from '@angular/material';
 import {ChatImageSelectionComponent} from './components/chat-image-selection/chat-image-selection.component';
 import {ChatImageComponent} from './components/chat-image/chat-image.component';
@@ -61,6 +61,8 @@ import {FileSizePipe} from './pipes/file-size/file-size.pipe';
         MatListModule,
         MatIconModule,
         WebcamModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
     providers: [
         BotService

@@ -1,3 +1,9 @@
-<p>
-  chat-image-selection works!
-</p>
+<div>
+  <div class="image-selection-container">
+    <div *ngFor="let image of images" class="image-selection-box">
+      <a href="/chats/{{image.chatId}}">
+        <img class="image-selection-image" [src]="image.downloadUrl">
+      </a>
+    </div>
+  </div>
+</div>

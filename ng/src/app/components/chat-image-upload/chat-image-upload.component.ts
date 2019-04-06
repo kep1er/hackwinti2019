@@ -6,13 +6,14 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {finalize} from 'rxjs/operators';
 import {tap} from 'rxjs/internal/operators/tap';
 import {log} from 'util';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-chat-image-upload',
     templateUrl: './chat-image-upload.component.html',
     styleUrls: ['./chat-image-upload.component.scss']
 })
-export class ChatImageUploadComponent {
+export class ChatImageUploadComponent implements OnInit {
 
     // Main task
     task: AngularFireUploadTask;
@@ -29,17 +30,25 @@ export class ChatImageUploadComponent {
     isHovering: boolean;
 
     currentSnap: any;
+    chatId: string;
 
     @Output() fileUploadedEvent = new EventEmitter();
 
-    constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
+    constructor(
+        private storage: AngularFireStorage,
+        private db: AngularFirestore,
+        private route: ActivatedRoute,
+    ) {
+    }
+
+    ngOnInit() {
+        this.chatId = this.route.snapshot.paramMap.get('id');
     }
 
 
     toggleHover(event: boolean) {
         this.isHovering = event;
     }
-
 
     startUpload(event: FileList) {
         // The File object
@@ -71,7 +80,7 @@ export class ChatImageUploadComponent {
                     if (this.currentSnap.bytesTransferred === this.currentSnap.totalBytes) {
                         // Update firestore on completion
                         this.db.collection('photos')
-                            .add({path, size: this.currentSnap.totalBytes, downloadUrl: url})
+                            .add({path, size: this.currentSnap.totalBytes, downloadUrl: url, chatId: this.chatId})
                             .then(res => this.fileUploadedEvent.emit(url));
                     }
                 });

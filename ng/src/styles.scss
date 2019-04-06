@@ -101,6 +101,8 @@ body {
   .msg__image {
     margin: 0 10px;
     border-radius: 5px;
+    width: 80%;
+    height: auto;
   }
 }
 
@@ -149,4 +151,14 @@ body {
 
 .d-none{
   display: none;
+}
+
+.file-input{
+  cursor: pointer;
+}
+
+.image-upload{
+  position: absolute;
+  right: -4px;
+  top: 9px;
 }

@@ -61,6 +61,8 @@ body {
     }
 
     .msg__content {
+      text-align: right;
+
       &:before {
         right: -10px;
         left: auto;

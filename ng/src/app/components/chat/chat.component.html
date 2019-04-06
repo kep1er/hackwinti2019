@@ -26,6 +26,6 @@
             <input class="input" [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(chat.id)">
             <button (click)="submit(chat.id)" class="button is-info" [disabled]="!newMsg">Send</button>
         </div>
+        <app-chat-image-upload (filePathEvent)="fileUploaded($event)"></app-chat-image-upload>
     </ng-container>
 </ng-container>
-<app-chat-image-upload></app-chat-image-upload>

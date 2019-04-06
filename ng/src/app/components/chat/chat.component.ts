@@ -32,6 +32,10 @@ export class ChatComponent implements OnInit {
         this.scrollBottom();
     }
 
+    fileUploaded($event){
+        console.log($event);
+    }
+
     submit(chatId) {
         if (!this.newMsg) {
             return alert('you need to enter something');

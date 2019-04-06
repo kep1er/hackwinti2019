@@ -81,10 +81,6 @@ export class ChatService {
         }
     }
 
-    async uploadImage(){
-
-    }
-
     async deleteMessage(chat, msg) {
         const {uid} = await this.auth.getUser();
 

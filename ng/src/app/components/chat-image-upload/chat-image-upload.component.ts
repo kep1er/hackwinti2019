@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {finalize, tap} from 'rxjs/operators';
 import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/storage";
 import {Observable} from "rxjs";
+import {from} from 'rxjs';
 import {AngularFirestore} from "@angular/fire/firestore";
+import {finalize} from "rxjs/operators";
+import {tap} from "rxjs/internal/operators/tap";
 
 @Component({
     selector: 'app-chat-image-upload',
@@ -28,17 +30,19 @@ export class ChatImageUploadComponent {
     constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
     }
 
+
     toggleHover(event: boolean) {
         this.isHovering = event;
     }
 
+
     startUpload(event: FileList) {
         // The File object
-        const file = event.item(0)
+        const file = event.item(0);
 
         // Client-side validation example
         if (file.type.split('/')[0] !== 'image') {
-            console.error('unsupported file type :( ')
+            console.error('unsupported file type :( ');
             return;
         }
 
@@ -50,8 +54,6 @@ export class ChatImageUploadComponent {
 
         // The main task
         this.task = this.storage.upload(path, file, {customMetadata});
-
-        // FileRef
         const fileRef = this.storage.ref(path);
 
         // Progress monitoring
@@ -69,8 +71,11 @@ export class ChatImageUploadComponent {
         )
     }
 
+
     // Determines if the upload task is active
     isActive(snapshot) {
         return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
     }
+
+
 }

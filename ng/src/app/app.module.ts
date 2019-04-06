@@ -14,7 +14,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {ChatBotComponent} from './components/chat-bot/chat-bot.component';
 import {BotService} from "./services/bot/bot.service";
 import {WebcamModule} from 'ngx-webcam';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 import {
     MatButtonModule,
@@ -54,6 +54,7 @@ import {FileSizePipe} from './pipes/file-size/file-size.pipe';
         AngularFireAuthModule,
         AngularFireStorageModule,
         HttpClientModule,
+        NoopAnimationsModule,
         MatButtonModule,
         MatCheckboxModule,
         MatToolbarModule,

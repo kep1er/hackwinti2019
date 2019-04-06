@@ -63,9 +63,23 @@ body {
   display: flex;
   align-items: center;
 
+  &--right {
+    justify-content: flex-end;
+    .msg__content {
+      order: -1;
+
+      &:before {
+        right: -10px;
+        left: auto;
+        border-width: 5px 0 5px 10px;
+        border-color: transparent transparent transparent $color--primary;
+      }
+    }
+  }
+
   &__content {
     position: relative;
-    margin-left: 1rem;
+    margin: 1rem;
     padding: 1em;
     background: $color--primary;
     color: white;

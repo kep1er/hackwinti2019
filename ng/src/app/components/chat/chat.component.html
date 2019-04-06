@@ -1,7 +1,7 @@
 <ng-container *ngIf="chat$ | async as chat">
     <ng-container *ngIf=" auth.user$ | async as user" class="main">
         <div #chatBox class="chat">
-            <div class="msg animated zoomInUp" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
+            <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
                 <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px">
                 <p class="msg__content">{{ msg.content }}</p>
             </div>

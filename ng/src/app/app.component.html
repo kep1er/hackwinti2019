@@ -1,8 +1,14 @@
 <mat-toolbar class="toolbar">
-  <div>Sulzer Companion</div>
-  <button *ngIf=" auth.user$ | async as user; else login" (click)="auth.signOut()" mat-button>Logout</button>
+  <mat-icon *ngIf="router.url != '/' " class="icon-back" mat-list-icon (click)="location.back()">arrow_back</mat-icon>
+  <div>Solver</div>
+  <div class="spacer"></div>
+  <div class="toolbar__buttons" *ngIf=" auth.user$ | async as user; else login">
+    <!-- <span class="tag is-dark">{{ user.displayName }}</span> -->
+    <img class="photo" [src]="user.photoURL" width="50px">
+    <button (click)="auth.signOut()" mat-button>Logout</button>
+  </div>
   <ng-template #login>
     <button (click)="auth.googleSignIn()" mat-button>Login</button>
   </ng-template>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<router-outlet *ngIf=" auth.user$ | async"></router-outlet>

@@ -12,5 +12,5 @@
   </ng-template>
 </mat-toolbar>
 <div class="main">
-  <router-outlet *ngIf=" auth.user$ | async"></router-outlet>
+  <router-outlet class="router-outlet" *ngIf=" auth.user$ | async"></router-outlet>
 </div>

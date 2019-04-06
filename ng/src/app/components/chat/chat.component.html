@@ -1,19 +1,20 @@
 <ng-container *ngIf="chat$ | async as chat">
-    <ng-container *ngIf=" auth.user$ | async as user" class="main">
-        <div #chatBox class="chat">
-            <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
-                <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px">
-                <p class="msg__content">{{ msg.content }}</p>
+    <ng-container *ngIf=" auth.user$ | async as user">
+        <div class="chat">
+            <div #chatBox class="chat__main">
+                <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
+                    <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px">
+                    <p class="msg__content">{{ msg.content }}</p>
+                </div>
+            </div>
+            <div class="chat__form">
+                <mat-form-field appearance="outline" class="no-hint">
+                    <mat-label>Type Away ...</mat-label>
+                    <input matInput [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(chat.id)" placeholder="Type away ..." />
+                    <mat-icon matSuffix>attach_file</mat-icon>
+                    <mat-hint align="start"></mat-hint>
+                </mat-form-field>
             </div>
         </div>
-        <div class="form">
-            <mat-form-field appearance="outline">
-                <mat-label>Type Away ...</mat-label>
-                <input matInput [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(chat.id)" placeholder="Type away ..." />
-                <mat-icon matSuffix>attach_file</mat-icon>
-            </mat-form-field>
-            <!--<button (click)="submit(chat.id)" class="button is-info" [disabled]="!newMsg">Send</button>-->
-        </div>
-        <app-chat-image-upload (filePathEvent)="fileUploaded($event)"></app-chat-image-upload>
     </ng-container>
 </ng-container>

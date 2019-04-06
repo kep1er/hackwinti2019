@@ -59,8 +59,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     function writeToDb(agent: any) {
         // Get parameter from Dialogflow with the string to add to the database
         const databaseEntry = agent.parameters.databaseEntry;
-        console.log(agent.session);
-        
+        console.log(agent.request.body);
+
         // Get the database collection 'dialogflow' and document 'agent' and store
         // the document  {entry: "<value of database entry>"} in the 'agent' document
         const dialogflowAgentRef = db.collection('dialogflow').doc('agent');
@@ -68,6 +68,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             t.set(dialogflowAgentRef, {entry: databaseEntry});
             return Promise.resolve('Write complete');
         }).then(doc => {
+            console.log(doc);
             agent.add(`Wrote "${databaseEntry}" to the Firestore database.`);
         }).catch(err => {
             console.log(`Error writing to Firestore: ${err}`);

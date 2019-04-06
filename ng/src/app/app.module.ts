@@ -15,12 +15,21 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
 import {AngularFireStorageModule} from "@angular/fire/storage";
 import {HttpClientModule} from "@angular/common/http";
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MatButtonModule, 
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatMenuModule,
+  MatListModule,
+  MatIconModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,14 @@ import {HttpClientModule} from "@angular/common/http";
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpClientModule,
-  ],
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatListModule,
+    MatIconModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

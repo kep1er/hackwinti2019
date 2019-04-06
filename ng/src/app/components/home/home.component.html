@@ -1,5 +1,3 @@
-<h1>Welcome to Mega Chat</h1>
-
 <div class="login">
   <div *ngIf=" auth.user$ | async as user; else login">
     <img [src]="user.photoURL" width="50px">
@@ -31,3 +29,18 @@
   </ng-template>
 
 </div>
+<mat-list>
+  <h3 mat-subheader>Your Issues</h3>
+  <mat-list-item *ngFor="let chat of userChats$ | async">
+    <mat-icon mat-list-icon>chat</mat-icon>
+    <h4 mat-line>{{chat.id}}</h4>
+    <p mat-line> {{chat.messages.length}} </p>
+  </mat-list-item>
+  <!-- <mat-divider></mat-divider>
+  <h3 mat-subheader>Notes</h3>
+  <mat-list-item *ngFor="let note of notes">
+    <mat-icon mat-list-icon>note</mat-icon>
+    <h4 mat-line>{{note.name}}</h4>
+    <p mat-line> {{note.messages.length}} </p>
+  </mat-list-item> -->
+</mat-list>

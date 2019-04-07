@@ -19,7 +19,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
     console.log(`Intent: ${agent.intent}`);
 
-    function createMessage(agent: any){
+    function createMessage(agent: any) {
         const data = {
             uid: 'jqFFtNxiXIdOdBDtB129',
             content: agent.request_.body.queryResult.fulfillmentText,
@@ -27,9 +27,9 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
         };
 
         const ref = db.collection('chats').doc(sessionId);
-        if(agent.request_.body.queryResult.fulfillmentText === 'DONE'){
-            ref.update({botActive: false});
-        }else{
+        if (agent.request_.body.queryResult.fulfillmentText === 'DONE') {
+            return ref.update({botActive: false});
+        } else {
             return ref.update({
                 messages: admin.firestore.FieldValue.arrayUnion(data)
             });

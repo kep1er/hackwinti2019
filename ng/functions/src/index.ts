@@ -25,10 +25,15 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
             content: agent.request_.body.queryResult.fulfillmentText,
             createdAt: Date.now() + 1000
         };
+
         const ref = db.collection('chats').doc(sessionId);
-        return ref.update({
-            messages: admin.firestore.FieldValue.arrayUnion(data)
-        });
+        if(agent.request_.body.queryResult.fulfillmentText === 'DONE'){
+            ref.update({botActive: false});
+        }else{
+            return ref.update({
+                messages: admin.firestore.FieldValue.arrayUnion(data)
+            });
+        }
     }
 
     function writeToDb(agent: any) {

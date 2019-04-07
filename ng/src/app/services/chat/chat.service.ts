@@ -36,14 +36,19 @@ export class ChatService {
         return this.auth.user$.pipe(
             switchMap(user => {
                 return this.afs
-                    .collection('chats', ref => ref.where('uid', '==', user.uid))
+                    .collection('chats')
                     .snapshotChanges()
                     .pipe(
                         map(actions => {
                             return actions.map(a => {
+                                let newChat = false;
+                                // @ts-ignore
+                                if(a.payload.doc.data().messages.find(a => a.uid === user.uid)){
+                                    newChat = true;
+                                }
                                 const data: Object = a.payload.doc.data();
                                 const id = a.payload.doc.id;
-                                return {id, ...data};
+                                return {id, ...data, newChat};
                             });
                         })
                     );

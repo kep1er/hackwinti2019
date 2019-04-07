@@ -2,17 +2,23 @@
     <ng-container *ngIf=" auth.user$ | async as user">
         <div class="chat">
             <div #chatBox class="chat__main">
-                <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
-                    <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'">
-                    <img class="msg__image" *ngIf="msg.imageUrl" [src]="msg.imageUrl">
-                    <p *ngIf="!msg.imageUrl" class="msg__content">{{ msg.content }}</p>
-                    <app-chat-image-selection *ngIf="msg.content === 'BOT_IMAGES'"></app-chat-image-selection>
+                <div *ngFor="let msg of chat.messages; trackBy: trackByCreated">
+                    <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid">
+                        <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'">
+                        <p *ngIf="!msg.imageUrl" class="msg__content">{{ msg.content }}</p>
+                        <img class="msg__image" *ngIf="msg.imageUrl" [src]="msg.imageUrl">
+                        <app-chat-image-selection *ngIf="msg.content === 'BOT_IMAGES'"></app-chat-image-selection>
+                    </div>
+                    <div>
+                        <img class="msg__manual" *ngIf="msg.content.includes('Engine')" [src]="'assets/turbine.png'">
+                    </div>
                 </div>
             </div>
             <div class="chat__form">
                 <mat-form-field appearance="outline" class="no-hint">
                     <mat-label>Type Away ...</mat-label>
-                    <textarea matInput [(ngModel)]="newMsg" maxlength="100" (keyup.enter)="submit(chat.id, $event)" placeholder="Type away ..." ></textarea>
+                    <textarea matInput [(ngModel)]="newMsg" maxlength="100" (keyup.enter)="submit(chat.id, $event)"
+                              placeholder="Type away ..."></textarea>
                     <app-chat-image-upload class="image-upload" (fileUploadedEvent)="fileUploaded(chat.id, $event)">
                     </app-chat-image-upload>
                     <mat-hint align="start"></mat-hint>

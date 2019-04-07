@@ -7,6 +7,7 @@ import {Observable, combineLatest, of} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
 import {BotService} from "../bot/bot.service";
 import {computeStyle} from "@angular/animations/browser/src/util";
+import {log} from 'util';
 
 @Injectable({
     providedIn: 'root'
@@ -43,12 +44,18 @@ export class ChatService {
                             return actions.map(a => {
                                 let newChat = false;
                                 // @ts-ignore
-                                if(a.payload.doc.data().messages.find(a => a.uid === user.uid)){
+                                if (a.payload.doc.data().messages.find(a => a.uid === user.uid)) {
                                     newChat = true;
+                                }
+                                // @ts-ignore
+                                let messages = a.payload.doc.data().messages;
+                                let lastMsg = '';
+                                if (messages.length) {
+                                    lastMsg = messages.splice(-1)[0].content;
                                 }
                                 const data: Object = a.payload.doc.data();
                                 const id = a.payload.doc.id;
-                                return {id, ...data, newChat};
+                                return {id, ...data, newChat, lastMsg};
                             });
                         })
                     );

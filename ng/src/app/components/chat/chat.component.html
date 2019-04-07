@@ -17,6 +17,7 @@
                             </span>
                         </p>
                         <img class="msg__image" *ngIf="msg.imageUrl" [src]="msg.imageUrl">
+                        <p style="display: none">{{disableBot(msg.content)}}</p>
                     </div>
                     <div>
                         <img class="msg__manual" *ngIf="msg.content.includes('[PDF-Turbine NX]')"

@@ -120,6 +120,8 @@ export class ChatService {
                 arr.forEach(v => (joinKeys[(<any>v).uid] = v));
                 chat.messages = chat.messages.map(v => {
                     return {...v, user: joinKeys[v.uid]};
+                }).sort((a, b) => {
+                    return a.createdAt - b.createdAt;
                 });
 
                 return chat;

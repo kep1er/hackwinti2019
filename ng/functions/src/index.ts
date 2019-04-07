@@ -9,31 +9,6 @@ const db = admin.firestore();
 const settings = {timestampsInSnapshots: true};
 db.settings(settings);
 
-export const archiveChat = functions.firestore
-    .document("chats/{chatId}")
-    .onUpdate(change => {
-        let data: any;
-        data = change.after.data();
-
-        const maxLen = 50;
-        const msgLen = data.messages.length;
-        const charLen = JSON.stringify(data).length;
-
-        const batch = db.batch();
-
-        if (charLen >= 10000 || msgLen >= maxLen) {
-            data.messages.splice(0, msgLen - maxLen);
-            console.log(data.messages.length);
-            const ref = db.collection("chats").doc(change.after.id);
-
-            batch.set(ref, data, {merge: true});
-
-            return batch.commit();
-        } else {
-            return null;
-        }
-    });
-
 const {WebhookClient} = require("dialogflow-fulfillment");
 
 process.env.DEBUG = 'dialogflow:*'; // enables lib debugging statements
@@ -45,11 +20,10 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     console.log(`Intent: ${agent.intent}`);
 
     function createMessage(agent: any){
-
         const data = {
             uid: 'jqFFtNxiXIdOdBDtB129',
             content: agent.request_.body.queryResult.fulfillmentText,
-            createdAt: Date.now() + 500
+            createdAt: Date.now() + 1000
         };
         const ref = db.collection('chats').doc(sessionId);
         return ref.update({

@@ -18,6 +18,7 @@ export class ChatComponent implements OnInit {
     chat$: Observable<any>;
     newMsg: string;
     botActive: false;
+    bodyHeight = document.body.scrollHeight;
 
     constructor(
         public cs: ChatService,
@@ -61,6 +62,10 @@ export class ChatComponent implements OnInit {
     }
 
     private scrollBottom() {
-        setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 500);
+        this.bodyHeight = document.body.scrollHeight;
+        setTimeout(() => {
+            console.log(this.bodyHeight);
+            window.scrollTo(0, this.bodyHeight);
+        }, 500);
     }
 }

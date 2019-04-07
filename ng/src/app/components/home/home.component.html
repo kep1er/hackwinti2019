@@ -1,4 +1,4 @@
-<mat-action-list>
+<mat-action-list class="solver">
   <h3 mat-subheader>Your Issues</h3>
   <mat-list-item *ngFor="let chat of userChats$ | async" (click)="router.navigateByUrl('/chats/' + chat.id)">
     <mat-icon mat-list-icon>chat</mat-icon>

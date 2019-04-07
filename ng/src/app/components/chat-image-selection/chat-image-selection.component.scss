@@ -1,9 +1,10 @@
 .image-selection-container{
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 -5px;
+  margin-top: 1rem;
 }
 
 .image-selection-box{

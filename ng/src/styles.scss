@@ -97,6 +97,13 @@ body {
     }
   }
 
+  &__manual{
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+
   &__photo {
     flex-shrink: 0;
     width: 3rem;

@@ -21,7 +21,7 @@ export class ChatImageSelectionComponent implements OnInit {
             res => {
                 this.images = res.docs.map(doc => doc.data());
                 this.images.sort(() => Math.random() - 0.5);
-                this.images = this.images.slice(0, 9);
+                this.images = this.images.slice(0, 3);
                 console.log(this.images);
             }
         );

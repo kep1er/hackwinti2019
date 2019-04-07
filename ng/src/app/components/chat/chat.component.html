@@ -5,12 +5,12 @@
                 <div *ngFor="let msg of chat.messages; trackBy: trackByCreated">
                     <div class="msg animated zoomInUp" [class.msg--right]="user.uid === msg.user.uid">
                         <img class="msg__photo photo" [src]="msg.user?.photoURL || 'assets/unicorn.svg'">
-                        <p *ngIf="!msg.imageUrl" class="msg__content">{{ msg.content }}<br><span class="msg__timestamp">{{msg._time}}</span></p>
+                        <p *ngIf="!(msg.imageUrl || msg.content.includes('BOT_IMAGES'))" class="msg__content">{{ msg.content }}<br><span class="msg__timestamp">{{msg._time}}</span></p>
                         <img class="msg__image" *ngIf="msg.imageUrl" [src]="msg.imageUrl">
-                        <app-chat-image-selection *ngIf="msg.content === 'BOT_IMAGES'"></app-chat-image-selection>
+                        <app-chat-image-selection *ngIf="msg.content.includes('BOT_IMAGES')"></app-chat-image-selection>
                     </div>
-                    <div>
-                        <img class="msg__manual" *ngIf="msg.content.includes('Engine')" [src]="'assets/turbine.png'">
+                    <div *ngIf="msg.content.includes('Engine')">
+                        <img class="msg__manual"  [src]="'assets/turbine.png'">
                     </div>
                 </div>
             </div>

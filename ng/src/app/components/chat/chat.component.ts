@@ -64,7 +64,6 @@ export class ChatComponent implements OnInit {
     private scrollBottom() {
         this.bodyHeight = document.body.scrollHeight;
         setTimeout(() => {
-            console.log(this.bodyHeight);
             window.scrollTo(0, this.bodyHeight);
         }, 500);
     }

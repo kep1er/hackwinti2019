@@ -97,6 +97,10 @@ body {
     }
   }
 
+  &__timestamp {
+    font-size: .7em;
+  }
+
   &__manual{
     border-radius: 5px;
     width: 100%;
@@ -110,7 +114,7 @@ body {
     margin-right: .5rem;
   }
 
-  .msg__image {
+  &__image {
     margin: 0 10px;
     border-radius: 5px;
     width: 80%;

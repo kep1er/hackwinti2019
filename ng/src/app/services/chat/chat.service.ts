@@ -123,8 +123,21 @@ export class ChatService {
             }),
             map(arr => {
                 arr.forEach(v => (joinKeys[(<any>v).uid] = v));
+                const dateNow = new Date();
+                const midnight = new Date(dateNow.getTime());
+
                 chat.messages = chat.messages.map(v => {
-                    return {...v, user: joinKeys[v.uid]};
+                    const date = new Date(v.createdAt);
+                    const hours = this.zeroed(date.getHours());
+                    const minutes = this.zeroed(date.getMinutes());
+                    const mDate = this.zeroed(date.getDate());
+                    const month = this.zeroed(date.getMonth() + 1);
+
+                    let time = `${hours}:${minutes}`;
+                    if (midnight.getTime() < date.getTime()) {
+                        time = `${mDate}.${month}.${date.getFullYear()} ` + time;
+                    }
+                    return {...v, user: joinKeys[v.uid], _time: time};
                 }).sort((a, b) => {
                     return a.createdAt - b.createdAt;
                 });
@@ -132,5 +145,9 @@ export class ChatService {
                 return chat;
             })
         );
+    }
+
+    zeroed(str: any) {
+        return `0${str}`.slice(-2);
     }
 }

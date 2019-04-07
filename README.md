@@ -1,4 +1,5 @@
 # Welcome to our Solver repository
+[logo]: https://raw.githubusercontent.com/kep1er/hackwinti2019/master/ng/src/assets/LOGO_SOLVER.png
 
 ## Idea
 Solver is a chat app with an integrated chat bot to help maintenance workers of Sulzer to do their work.

@@ -74,7 +74,7 @@ export class ChatService {
         const data = {
             uid,
             content,
-            createdAt: Date.now(),
+            createdAt: Date.now() - 500,
             imageUrl: imageUrl
         };
 
